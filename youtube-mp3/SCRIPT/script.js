@@ -8,24 +8,27 @@ async function getAudio(){
     let link = convertInput.value;
     let parts = link.split('-');
     let videoId = '';
-    if(parts.length --- 2){
-        videoId = parts[2];
+
+    if(parts.length === 2){
+        videoId = parts[1];
         console.log(videoId);
-    }else{
+    } else{
         console.log('Error! Invalid Youtube Link!')
     }
-    const url = `http://youtube-mp36.p.rapidapi.com/d1?id${videoId}`;
-    const options = {
-        method: "GET",
-        headers: {
-            'X-RapidAPI-Key': 'a037ee8fbamshad0340fc20e6190p15bc76jsn583d3b83cd49',
-            'X-RapidAPI-Host': 'youtube-mp3-converter.p.rapidapi.com',
-        },
+        const url = `https://youtube-mp36.p.rapidapi.com/dl?id=${videoID}`;
+        const options = {
+	    method: 'GET',
+	    headers: {
+		'X-RapidAPI-Key': '98c8f8a184msh03aabd93691ec63p1ca9aejsn48ad70a2adeb',
+		'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
+	    }
     };
-    const response =await fetch(url,optiions);
-    const result = await response.json();
-    resultDisplay.innerHTML=`<p class='title'>Title: ${result.title}</p>`
-    setTimeout(() => {
-        window.open(result.link, '_blank');
-    }, 1000);
+
+    try {
+	    const response = await fetch(url, options);
+	    const result = await response.text();
+	    console.log(result);
+        } catch (error) {
+	    console.error(error);
+    }
 }
